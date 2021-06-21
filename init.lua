@@ -3,6 +3,12 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("boats")
 
+-- Games
+local is_mtg = minetest.get_modpath("default")
+local is_aurum = minetest.get_modpath("aurum")
+
+assert(is_mtg or is_aurum, "no compatible game found")
+
 --
 -- Helper functions
 --
@@ -36,7 +42,7 @@ local boat = {
 		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
 		visual = "mesh",
 		mesh = "boats_boat.obj",
-		textures = {"default_wood.png"},
+		textures = {(is_mtg and "default_wood.png") or (is_aurum and minetest.registered_nodes["aurum_trees:birch_planks"].tiles[1])},
 	},
 
 	driver = nil,
